@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define NUMS 5
+
+void cleanup()
+{
+	while (getchar() != '\n');
+}	// end cleanup
+
+int main()
+{
+	// greet user
+	char name[10];
+	printf("Enter your name: ");
+	scanf("%9s",name);
+	cleanup();
+	printf("Welcome %s!\n\n", name);
+
+	// declare array to hold items
+	int items[NUMS] = {};	// default to all zeroes
+	int choice = 0;
+
+	do
+	{
+		// display order form
+		printf("Select an item to buy: \n");
+
+		for (int i = 0; i < NUMS; i++)
+		{
+			if (items[i] == 0)
+				printf("%3d) available\n", i);
+			else
+				printf("%3d) sold out\n", i);
+		}
+
+		printf("Item (-1 to quit): ");
+		scanf("%d", &choice);
+
+		// check for valid order
+		if (choice >= 0 && choice < NUMS)
+		{
+			if (items[choice])
+				printf("***Item %d is sold out!\n", choice);
+			else
+				items[choice] = 1;
+		}
+		else if (choice != -1)
+		{
+			printf("***Item %d doesn't exist\n\n", choice);
+		}
+
+	} while (choice != -1);
+
+	// farewell to user
+	printf("\nThanks for shopping with us, %s\n", name);
+        return 0;
+}	// end main
